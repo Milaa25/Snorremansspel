@@ -1,0 +1,254 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Winkelmandje | Snorremans</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/main.css" />
+
+    <style>
+      #header { background-color: #ffcccc; }
+      #header h1 a, #header nav a { color: #800000; }
+      #header h1 a:hover, #header nav a:hover { color: #b30000; }
+
+      .cart-container {
+        max-width: 900px;
+        margin: 3rem auto;
+        background: white;
+        border-radius: 10px;
+        padding: 2rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 { text-align: center; color: #800000; }
+
+      table { width: 100%; border-collapse: collapse; margin-top: 2rem; }
+
+      th, td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+        text-align: center;
+      }
+
+      th { background-color: #ffe6e6; }
+
+      img { width: 60px; border-radius: 5px; }
+
+      .quantity-input {
+        width: 60px;
+        padding: 6px;
+        text-align: center;
+      }
+      #header h1 {
+         font-family: 'Bangers', cursive;
+         font-size: 4em;
+         letter-spacing: 1px;
+         text-transform: uppercase;
+         color: #fff;
+      }
+
+      .remove-btn {
+        background: #ff4d4d;
+        border: none;
+        color: white;
+        padding: 6px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      .remove-btn:hover { background: #cc0000; }
+
+      .total {
+        text-align: right;
+        margin-top: 1.5rem;
+        font-size: 1.2rem;
+        font-weight: bold;
+      }
+
+      .checkout-btn {
+        display: block;
+        margin: 2rem auto 0 auto;
+        background: #b30000;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 5px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      .checkout-btn:hover { background: #d60000; }
+
+      .empty {
+        text-align: center;
+        font-size: 1.1rem;
+        color: #555;
+        margin-top: 2rem;
+      }
+
+      #cart-count {
+        position: absolute;
+        top: -8px;
+        right: -14px;
+        background: #b30000;
+        color: white;
+        border-radius: 50%;
+        padding: 2px 7px;
+        font-size: 0.8rem;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="page-wrapper">
+      <!-- Header -->
+      <section id="header">
+        <h1><a href="index.html">SNORREMANS</a></h1>
+        <nav id="nav">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li class="current"><a href="winkelmandje.html">Winkelmandje 🛒 <span id="cart-count">0</span></a></li>
+            <li><a href="about.html">Over Ons</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </section>
+
+      <!-- Winkelmandje inhoud -->
+      <section id="main">
+        <div class="container">
+          <div class="cart-container">
+            <h2>Jouw Winkelmandje</h2>
+
+            <table id="cart-table">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Afbeelding</th>
+                  <th>Aantal</th>
+                  <th>Prijs per stuk</th>
+                  <th>Totaal</th>
+                  <th>Verwijder</th>
+                </tr>
+              </thead>
+              <tbody id="cart-body"></tbody>
+            </table>
+
+            <p id="cart-empty" class="empty" style="display:none;">Je winkelmandje is leeg 🛒</p>
+            <div class="total" id="cart-total"></div>
+
+            <!-- 🔹 Betaalknop (vaste PayRequest-link) -->
+            <button class="checkout-btn" onclick="checkout()">💳 Afrekenen</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <section id="footer">
+        <div class="container">
+          <div id="copyright">
+            <ul class="links">
+              <li>&copy; 2025 Snorremans. Alle rechten voorbehouden.</li>
+              <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Script -->
+    <script>
+      function renderCart() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const cartBody = document.getElementById("cart-body");
+        const cartTotal = document.getElementById("cart-total");
+        const emptyMsg = document.getElementById("cart-empty");
+
+        cartBody.innerHTML = "";
+
+        if (cart.length === 0) {
+          document.getElementById("cart-table").style.display = "none";
+          emptyMsg.style.display = "block";
+          cartTotal.textContent = "";
+          updateCartCount();
+          return;
+        }
+
+        document.getElementById("cart-table").style.display = "table";
+        emptyMsg.style.display = "none";
+
+        let total = 0;
+        cart.forEach((item, index) => {
+          const price = parseFloat(item.price) || 0;
+          const qty = parseInt(item.quantity) || 0;
+          const subtotal = price * qty;
+          total += subtotal;
+
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${item.name}</td>
+            <td><img src="${item.image}" alt="${item.name}"></td>
+            <td>
+              <input type="number" min="1" value="${qty}" class="quantity-input" onchange="updateQuantity(${index}, this.value)">
+            </td>
+            <td>€${price.toFixed(2)}</td>
+            <td>€${subtotal.toFixed(2)}</td>
+            <td><button class="remove-btn" onclick="removeItem(${index})">X</button></td>
+          `;
+          cartBody.appendChild(row);
+        });
+
+        cartTotal.textContent = "Totaal: €" + total.toFixed(2);
+        updateCartCount();
+      }
+
+      function updateQuantity(index, newQty) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        newQty = parseInt(newQty);
+        if (newQty > 0) {
+          cart[index].quantity = newQty;
+        } else {
+          cart.splice(index, 1);
+        }
+        localStorage.setItem("cart", JSON.stringify(cart));
+        renderCart();
+      }
+
+      function removeItem(index) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        cart.splice(index, 1);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        renderCart();
+      }
+
+      // 🔹 Nieuwe versie: opent PayRequest-link
+      function checkout() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        if (cart.length === 0) {
+          alert("Je winkelmandje is leeg 🛒");
+          return;
+        }
+
+        alert("Bedankt voor je bestelling! 🎉 Je wordt doorgestuurd naar de betaalpagina.");
+        // ✅ Zet hier je eigen PayRequest-link:
+        window.open("https://payreque.st/133im0rsg", "_blank");
+        localStorage.removeItem("cart");
+        renderCart();
+      }
+
+      function updateCartCount() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const total = cart.reduce((sum, item) => sum + item.quantity, 0);
+        const countElement = document.getElementById("cart-count");
+        if (countElement) countElement.textContent = total;
+      }
+
+      document.addEventListener("DOMContentLoaded", renderCart);
+    </script>
+  </body>
+</html>
