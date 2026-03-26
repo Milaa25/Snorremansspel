@@ -389,7 +389,7 @@
         });
 
         cartTotal.textContent = "Totaal: €" + total.toFixed(2);
-        paypalAmount.value = total.toFixed(2);
+        paypalAmount.value = "1.00";
         paypalItemName.value = "Snorremans bestelling (" + cart.length + " product(en))";
 
         updateCartCount();
