@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Snorremans Spel</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/main.css" />
+
+    <style>
+	  #cart-link {
+      position: relative;
+      font-size: 1.1rem;
+      }
+
+      #cart-count {
+      position: absolute;
+      top: -8px;
+      right: -14px;
+      background: #b30000;
+      color: white;
+      border-radius: 50%;
+      padding: 2px 7px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      }
+      /* 🔴 Alleen bovenste balk (header) lichtrood maken */
+      #header {
+        background-color: #ffcccc;
+      }
+
+      #header h1 a,
+      #header nav a {
+        color: #800000; /* Donkerrood voor contrast */
+      }
+
+      #header h1 a:hover,
+      #header nav a:hover {
+        color: #b30000;
+      }
+	  .button.large {
+        background-color: #d52349;
+        color: #fff !important;
+        font-size: 1.2em;
+        padding: 0.8em 2em;
+        border-radius: 6px;
+        transition: background-color 0.3s ease;
+      }
+
+     .button.large:hover {
+        background-color: #b30000;
+      }
+	  #header h1, #banner h2 {
+         font-family: 'Bangers', cursive;
+		 font-size: 4em;
+         letter-spacing: 1px;
+         text-transform: uppercase;
+         color: #fff;
+      }
+	  @keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+#banner header h2 {
+  animation: pulse 2s infinite;
+}
+
+
+    </style>
+  </head>
+
+  <body class="homepage is-preload">
+    <div id="page-wrapper">
+      <!-- Header -->
+      <section id="header">
+        <!-- Logo -->
+        <h1><a href="index.html">SNORREMANS</a></h1>
+
+        <!-- Nav -->
+        <nav id="nav">
+			<ul>
+				<li><a href="index.html">Home</a></li>
+				<li><a href="shop.html">Shop</a></li>
+				<li><a href="about.html">Over Ons</a></li>
+				<li><a href="contact.html">Contact</a></li>
+				<li>
+				  <a href="winkelmandje.html" id="cart-link">
+					🛒 <span id="cart-count">0</span>
+				  </a>
+				</li>
+			  </ul>			  
+        </nav>
+
+        <!-- Banner -->
+        <section id="banner">
+          <header>
+            <h2>🍻DRINKING GAME🍻</h2>
+            <p>The best drinking game to get really drunk and get to know your friends even better!</p>
+          </header>
+        </section>
+      </section>
+
+      <!-- Main -->
+      <section id="main">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <!-- Je kunt hier later nieuwe secties toevoegen -->
+              <section>
+				<header class="major">
+				  <h2>Over het spel</h2>
+				</header>
+				<p>
+				  Snorremans is het ultieme drankspel om samen met vrienden te spelen.
+				  Eenvoudige regels, veel plezier en gegarandeerd chaos aan tafel.
+				</p>
+			  
+				<!-- 🔴 Toegevoegde knop naar de shop -->
+				<footer>
+				  <ul class="actions">
+					<li><a href="shop.html" class="button large">Ga naar de shop</a></li>
+				  </ul>
+				</footer>
+			  </section>			  
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <section id="footer">
+        <div class="container">
+          <div class="col-12">
+            <div id="copyright">
+              <ul class="links">
+                <li>&copy; 2025 Snorremans. Alle rechten voorbehouden.</li>
+                <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.dropotron.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+	<script>
+		function updateCartCount() {
+		  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+		  let totalItems = 0;
+		  cart.forEach(item => totalItems += item.quantity);
+		  const countElement = document.getElementById("cart-count");
+		  if (countElement) {
+			countElement.textContent = totalItems;
+		  }
+		}
+	  
+		// update bij laden
+		updateCartCount();
+	  </script>	  
+  </body>
+</html>

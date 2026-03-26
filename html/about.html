@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Over Ons - Snorremans</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+
+    <!-- 🔤 Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+
+    <!-- 🎨 CSS -->
+    <link rel="stylesheet" href="assets/css/main.css" />
+
+    <style>
+      /* 🔴 Header in dezelfde stijl als homepagina */
+      #header {
+        background-color: #ffcccc;
+      }
+      #header h1 a,
+      #header nav a {
+        color: #800000;
+      }
+      #header h1 a:hover,
+      #header nav a:hover {
+        color: #b30000;
+      }
+      #header h1 {
+        font-family: 'Bangers', cursive;
+        font-size: 4em;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: #fff;
+      }
+
+      /* 🎉 Extra stijl voor deze pagina */
+      #main {
+        background: #fff7f7 url("assets/css/images/bg02.png");
+      }
+
+      #main h2 {
+        font-family: 'Bangers', cursive;
+        color: #d52349;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+    </style>
+  </head>
+
+  <body class="is-preload">
+    <div id="page-wrapper">
+
+      <!-- Header -->
+      <section id="header">
+        <h1><a href="index.html">SNORREMANS</a></h1>
+
+        <!-- Nav -->
+        <nav id="nav">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li class="current"><a href="about.html">Over Ons</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li>
+              <a href="winkelmandje.html" id="cart-link">
+                🛒 <span id="cart-count">0</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </section>
+
+      <!-- Main -->
+      <section id="main">
+        <div class="container">
+          <header class="major">
+            <h2>Over Snorremans</h2>
+          </header>
+
+          <p>
+            Snorremans begon als een idee tijdens een (iets te gezellige) avond onder vrienden.
+            Wat begon met een paar kaartjes en een stapel bierglazen, groeide al snel uit tot het ultieme drankspel van Nederland.
+            Ons doel? Mensen samenbrengen, laten lachen en zorgen dat niemand nuchter naar huis gaat 🍻
+          </p>
+
+          <p>
+            Elk kaartje in het spel is getest door onze eigen vriendengroep — soms met succes, soms met een flinke kater.
+            We geloven dat een goed spel draait om humor, eerlijkheid en een beetje chaos. En ja, een snor hoort daar gewoon bij.
+          </p>
+
+          <footer style="text-align:center; margin-top:3em;">
+            <a href="shop.html" class="button large">🍺 Bestel het spel nu</a>
+          </footer>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <section id="footer">
+        <div class="container">
+          <div class="col-12">
+            <div id="copyright">
+              <ul class="links">
+                <li>&copy; 2025 Snorremans. Alle rechten voorbehouden.</li>
+                <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.dropotron.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <script>
+      // Winkelmandje teller
+      function updateCartCount() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        let totalItems = 0;
+        cart.forEach(item => totalItems += item.quantity);
+        const countElement = document.getElementById("cart-count");
+        if (countElement) countElement.textContent = totalItems;
+      }
+      updateCartCount();
+    </script>
+  </body>
+</html>

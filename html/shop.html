@@ -1,0 +1,190 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Shop | Snorremans Spel</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/main.css" />
+
+    <style>
+      #cart-link {
+      position: relative;
+      font-size: 1.1rem;
+      }
+
+      #cart-count {
+      position: absolute;
+      top: -8px;
+      right: -14px;
+      background: #b30000;
+      color: white;
+      border-radius: 50%;
+      padding: 2px 7px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      }
+
+      /* Zelfde rode header als op home */
+      #header {
+        background-color: #ffcccc;
+      }
+
+      #header h1 a,
+      #header nav a {
+        color: #800000;
+      }
+      #header h1 {
+         font-family: 'Bangers', cursive;
+		 font-size: 4em;
+         letter-spacing: 1px;
+         text-transform: uppercase;
+         color: #fff;
+      }
+
+      #header h1 a:hover,
+      #header nav a:hover {
+        color: #b30000;
+      }
+
+      /* Een eenvoudige productlayout */
+      .product-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        justify-content: center;
+        margin-top: 2rem;
+      }
+
+      .product-card {
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        padding: 1rem;
+        width: 250px;
+        text-align: center;
+      }
+
+      .product-card img {
+        width: 100%;
+        border-radius: 10px;
+      }
+
+      .product-card h3 {
+        margin-top: 1rem;
+        color: #800000;
+      }
+
+      .product-card button {
+        background: #b30000;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .product-card button:hover {
+        background: #d60000;
+      }
+      .button-link {
+  display: inline-block;
+  background: #b30000;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.button-link:hover {
+  background: #d60000;
+}
+
+    </style>
+  </head>
+
+  <body class="shop-page is-preload">
+    <div id="page-wrapper">
+      <!-- Header -->
+      <section id="header">
+        <h1><a href="index.html">SNORREMANS</a></h1>
+        <nav id="nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="about.html">Over Ons</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li>
+                  <a href="winkelmandje.html" id="cart-link">
+                    🛒 <span id="cart-count">0</span>
+                  </a>
+                </li>
+              </ul>              
+        </nav>
+      </section>
+
+      <!-- Main -->
+      <section id="main">
+        <div class="container">
+          <header class="major">
+            <h2>Shop</h2>
+            <p>Bestel hier jouw Snorremans kaartspel!</p>
+          </header>
+
+          <div class="product-grid">
+            <!-- 🔹 Eerste product -->
+            <div class="product-card">
+              <img src="images/snorremans.jpg" alt="Snorremans kaartspel" />
+              <h3>Snorremans Kaartspel</h3>
+              <p>Het ultieme drankspel voor jou en je vrienden.</p>
+              <a href="bestellen.html" class="button-link">Bestel Nu</a>
+            </div>
+
+            <!-- 🔹 Tweede identieke product -->
+            <div class="product-card special">
+              <img src="images/snorremans2.jpg" alt="Snorremans kaartspel 2" />
+              <h3>Snorremans Kaartspel 2.0</h3>
+              <p>Een nieuwe editie met nieuwe vragen!</p>
+              <a href="bestellen-limited.html" class="button-link">Bestel Nu</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <section id="footer">
+        <div class="container">
+          <div id="copyright">
+            <ul class="links">
+              <li>&copy; 2025 Snorremans. Alle rechten voorbehouden.</li>
+              <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.dropotron.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        function updateCartCount() {
+          const cart = JSON.parse(localStorage.getItem("cart")) || [];
+          let totalItems = 0;
+          cart.forEach(item => totalItems += item.quantity);
+          const countElement = document.getElementById("cart-count");
+          if (countElement) {
+            countElement.textContent = totalItems;
+          }
+        }
+      
+        // update bij laden
+        updateCartCount();
+      </script>      
+  </body>
+</html>
